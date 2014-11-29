@@ -82,7 +82,7 @@ function onMapClicked(event) {
     showOneButtonDialog(message, buttonName, callback);
     
     map.setCenter(cityCoordinate);
-    map.setZoom(5);
+    map.setZoom(10);
 }
 
 function fetchNextCityAndStartGame() {
