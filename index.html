@@ -41,12 +41,7 @@
   <script>
     startProgress();
 
-    fetchNextCity(function(cityResponse) {
-      var cityName = cityResponse.name;
-      alertify.alert("Guess where " + cityName + " is?", function() {
-        startNewGame(cityName);
-      });
-    });
+    fetchNextCityAndStartGame();
   </script>
 
   <span id="signinButton">

@@ -79,8 +79,17 @@ function onMapClicked(event) {
 
     var message = "So close! " + distanceKm.toFixed(2) + "km off." + "<p>" + "Do you want to guess the next city or try again with this city?" + "</p>"
     var buttonNames = ["Let me try once more!", "Next city..."];
-    var callbacks = [null, fetchNextCity];
+    var callbacks = [null, fetchNextCityAndStartGame];
     showTwoButtonsDialog(message, buttonNames, callbacks);
+}
+
+function fetchNextCityAndStartGame() {
+    fetchNextCity(function(cityResponse) {
+      var cityName = cityResponse.name;
+      alertify.alert("Guess where " + cityName + " is?", function() {
+        startNewGame(cityName);
+      });
+    });
 }
 
 function fetchNextCity(callback) {
