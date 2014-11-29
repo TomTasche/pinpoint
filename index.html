@@ -38,9 +38,12 @@
   <body>
     <script>
       startProgress();
-
-      alertify.alert("Guess where Vienna is?", function(){
-        startNewGame("Vienna");
+      
+      fetchNextCity(function(cityResponse) {
+        var cityName = cityResponse.name;
+        alertify.alert("Guess where " + cityName + " is?", function(){
+          startNewGame(cityName);
+        });
       });
     </script>
     

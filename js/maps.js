@@ -76,15 +76,27 @@ function onMapClicked(event) {
 
     var distance = google.maps.geometry.spherical.computeDistanceBetween(cityCoordinate, event.latLng);
     var distanceKm = distance / 1000;
-    
+
     var message = "So close! " + distanceKm.toFixed(2) + "km off." + "<p>" + "Do you want to guess the next city or try again with this city?" + "</p>"
     var buttonNames = ["Let me try once more!", "Next city..."];
     var callbacks = [null, fetchNextCity];
     showTwoButtonsDialog(message, buttonNames, callbacks);
 }
 
-function fetchNextCity() {
-    
+function fetchNextCity(callback) {
+    var cityRequest = new XMLHttpRequest();
+    cityRequest.onload = function() {
+        if (this.status != 200) {
+            alertify.error("An error occurred. Please reload the page.");
+
+            return;
+        }
+
+        var responseObject = JSON.parse(this.responseText);
+        callback(responseObject);
+    };
+    cityRequest.open("GET", "randomCity", true);
+    cityRequest.send();
 }
 
 function startNewGame(newCityName) {
