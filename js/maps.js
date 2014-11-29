@@ -3,7 +3,7 @@ var cityCoordinate = null;
 var selectionMarker = null;
 
 var map = null;
-var marker = null;
+var guessMarker = null;
 var geocoder = null;
 
 var geocoding = true;
@@ -63,24 +63,26 @@ function onMapClicked(event) {
         return;
     }
 
-    if (!marker) {
-        marker = new google.maps.Marker({
+    if (!guessMarker) {
+        guessMarker = new google.maps.Marker({
             position: event.latLng,
             map: map,
             title: cityName + "?"
         });
-    }
-    else {
-        marker.setPosition(event.latLng);
+    } else {
+        guessMarker.setPosition(event.latLng);
     }
 
     var distance = google.maps.geometry.spherical.computeDistanceBetween(cityCoordinate, event.latLng);
     var distanceKm = distance / 1000;
 
-    var message = "So close! " + distanceKm.toFixed(2) + "km off." + "<p>" + "Do you want to guess the next city or try again with this city?" + "</p>"
-    var buttonNames = ["Let me try once more!", "Next city..."];
-    var callbacks = [null, fetchNextCityAndStartGame];
-    showTwoButtonsDialog(message, buttonNames, callbacks);
+    var message = "<p>" + "So close! " + "<b>" + distanceKm.toFixed(2) + "km off." + "</b></p><p>" + "The map is now zoomed in to the real position of " + cityName + "." + "</p>";
+    var buttonName = "Next city...";
+    var callback = fetchNextCityAndStartGame;
+    showOneButtonDialog(message, buttonName, callback);
+    
+    map.setCenter(cityCoordinate);
+    map.setZoom(5);
 }
 
 function fetchNextCityAndStartGame() {
