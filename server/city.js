@@ -3,22 +3,49 @@
 var http = require('http'),
     url = require("url"),
     path = require("path"),
-    fs = require("fs");
+    fs = require("fs"),
+    readline = require('readline');
+
+var cityNames = [];
+
+function readCityNames() {
+    var rd = readline.createInterface({
+        input: fs.createReadStream('geonames_cities15000.csv'),
+        output: process.stdout,
+        terminal: false
+    });
+
+    rd.on('line', function(line) {
+        cityNames.push(line);
+    });
+}
+
+readCityNames();
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function getRandomCityName() {
+    var randomIndex = getRandomInt(0, cityNames.length);
+    return cityNames[randomIndex];
+}
 
 http.createServer(function(request, response) {
     var uri = url.parse(request.url).pathname;
-    
+
     var filename = path.join("../", uri);
     filename = path.join(process.cwd(), filename);
 
-    path.exists(filename, function(exists) {
+    fs.exists(filename, function(exists) {
         if (!exists) {
             response.writeHead(200, {
                 'Content-Type': 'application/json'
             });
 
             var randomCity = {
-                name: "Madrid"
+                name: getRandomCityName()
             };
 
             response.end(JSON.stringify(randomCity));
