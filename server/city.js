@@ -34,9 +34,7 @@ function getRandomCityName() {
 
 http.createServer(function(request, response) {
     var uri = url.parse(request.url).pathname;
-
-    var filename = path.join("../", uri);
-    filename = path.join(process.cwd(), filename);
+    var filename = path.join(process.cwd(), uri);
 
     fs.exists(filename, function(exists) {
         if (!exists) {
