@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PinPoint</title>
-    
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
 
-    <!-- AlertifyJS -->
-    <link rel="stylesheet" href="css/alertify.min.css"></link>
-    <link rel="stylesheet" href="css/alertify-default.min.css"></link>
+<head>
+  <title>PinPoint</title>
 
-    <script src="js/alertify.min.js"></script>
-    <script src="js/alertify.js"></script>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
 
-    <!-- ProgressJS -->
-    <link rel="stylesheet" href="css/progressjs.min.css"></link>
-    
-    <script src="js/progress.min.js"></script>
-    <script src="js/progress.js"></script>
+  <!-- AlertifyJS -->
+  <link rel="stylesheet" href="css/alertify.min.css"></link>
+  <link rel="stylesheet" href="css/alertify-default.min.css"></link>
 
-    <!-- google maps -->
-    <link rel="stylesheet" href="css/maps.css"></link>
-    
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry"></script>
-    <script src="js/maps.js"></script>
-    
-    <!-- google (play, plus, games) -->
-    <meta name="google-signin-clientid" content="583989806667-gbutn7qh6eug2opkbiio9pf8i6lq4j21.apps.googleusercontent.com" />
-    <meta name="google-signin-cookiepolicy" content="single_host_origin" />
-    <meta name="google-signin-callback" content="googleSigninCallback" />
-    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/games" />
-    
-    <script src="https://apis.google.com/js/client.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js"></script>
-    <script src="js/google.js"></script>
-  </head>
-  <body>
-    <script>
-      startProgress();
-      
-      fetchNextCity(function(cityResponse) {
-        var cityName = cityResponse.name;
-        alertify.alert("Guess where " + cityName + " is?", function(){
-          startNewGame(cityName);
-        });
+  <script src="js/alertify.min.js"></script>
+  <script src="js/alertify.js"></script>
+
+  <!-- ProgressJS -->
+  <link rel="stylesheet" href="css/progressjs.min.css"></link>
+
+  <script src="js/progress.min.js"></script>
+  <script src="js/progress.js"></script>
+
+  <!-- google maps -->
+  <link rel="stylesheet" href="css/maps.css"></link>
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry"></script>
+  <script src="js/maps.js"></script>
+
+  <!-- google (play, plus, games) -->
+  <meta name="google-signin-clientid" content="583989806667-gbutn7qh6eug2opkbiio9pf8i6lq4j21.apps.googleusercontent.com" />
+  <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+  <meta name="google-signin-callback" content="googleSigninCallback" />
+  <meta name="google-signin-scope" content="https://www.googleapis.com/auth/games" />
+
+  <script src="https://apis.google.com/js/client.js"></script>
+  <script src="https://apis.google.com/js/client:platform.js"></script>
+  <script src="js/google.js"></script>
+</head>
+
+<body>
+  <script>
+    startProgress();
+
+    fetchNextCity(function(cityResponse) {
+      var cityName = cityResponse.name;
+      alertify.alert("Guess where " + cityName + " is?", function() {
+        startNewGame(cityName);
       });
-    </script>
-    
-    <span id="signinButton">
-      <span class="g-signin"></span>
-    </span>
+    });
+  </script>
 
-    <div id="map-canvas"></div>
-  </body>
+  <span id="signinButton">
+      <span class="g-signin"></span>
+  </span>
+
+  <div id="map-canvas"></div>
+</body>
+
 </html>
