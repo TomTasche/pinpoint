@@ -10,7 +10,7 @@ var cityNames = [];
 
 function readCityNames() {
     var rd = readline.createInterface({
-        input: fs.createReadStream('geonames_cities15000.csv'),
+        input: fs.createReadStream('server/geonames_cities15000.csv'),
         output: process.stdout,
         terminal: false
     });
